@@ -89,6 +89,10 @@ export class AuthService {
     return this.apiClient.getAuthToken();
   }
 
+  getCurrentApiClient(): ApiClient {
+    return this.apiClient;
+  }
+
   clearAuth(): void {
     this.apiClient.clearAuthToken();
     this.apiClient.clearRefreshToken();

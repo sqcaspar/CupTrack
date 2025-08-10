@@ -10,6 +10,25 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
+// Helper function to create a demo JWT token
+const createDemoToken = (user: User): string => {
+  const header = { alg: 'HS256', typ: 'JWT' };
+  const payload = {
+    sub: user.id,
+    email: user.email,
+    provider: user.provider,
+    iat: Math.floor(Date.now() / 1000),
+    exp: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60) // 7 days
+  };
+  
+  // Base64 encode (demo token, not cryptographically secure)
+  const encodedHeader = btoa(JSON.stringify(header));
+  const encodedPayload = btoa(JSON.stringify(payload));
+  const signature = btoa('demo-signature-not-secure');
+  
+  return `${encodedHeader}.${encodedPayload}.${signature}`;
+};
+
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -29,6 +48,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     const initializeAuth = async () => {
       try {
+        // Check for demo authentication first
+        const demoAuth = localStorage.getItem('cuptrack_demo_auth');
+        if (demoAuth) {
+          try {
+            const demoData = JSON.parse(demoAuth);
+            // Restore demo token to API client
+            authService.getCurrentApiClient().setAuthToken(demoData.token);
+            setUser(demoData.user);
+            setIsAuthenticated(true);
+            console.log('Demo authentication restored from localStorage');
+            return;
+          } catch (error) {
+            console.warn('Invalid demo auth data, clearing:', error);
+            localStorage.removeItem('cuptrack_demo_auth');
+          }
+        }
+
+        // Check for regular authentication
         if (authService.isAuthenticated()) {
           setIsAuthenticated(true);
           // Note: In a real app, we might need to fetch user info from token
@@ -54,9 +91,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           provider: 'email'
         };
         
+        // Create demo token and set it in API client
+        const demoToken = createDemoToken(demoUser);
+        authService.getCurrentApiClient().setAuthToken(demoToken);
+        
+        // Store demo authentication in localStorage for persistence
+        const demoAuthData = {
+          user: demoUser,
+          token: demoToken,
+          timestamp: Date.now()
+        };
+        localStorage.setItem('cuptrack_demo_auth', JSON.stringify(demoAuthData));
+        
         setUser(demoUser);
         setIsAuthenticated(true);
-        console.log('Demo login successful - bypassed API call');
+        console.log('Demo login successful - token created and persisted');
         return;
       }
 
@@ -85,9 +134,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           provider: 'email'
         };
         
+        // Create demo token and set it in API client
+        const demoToken = createDemoToken(demoUser);
+        authService.getCurrentApiClient().setAuthToken(demoToken);
+        
+        // Store demo authentication in localStorage for persistence
+        const demoAuthData = {
+          user: demoUser,
+          token: demoToken,
+          timestamp: Date.now()
+        };
+        localStorage.setItem('cuptrack_demo_auth', JSON.stringify(demoAuthData));
+        
         setUser(demoUser);
         setIsAuthenticated(true);
-        console.log('Demo registration successful - bypassed API call');
+        console.log('Demo registration successful - token created and persisted');
         return;
       }
 
@@ -113,6 +174,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.error('Logout failed:', error);
       // Continue with local cleanup even if API call fails
     } finally {
+      // Clear demo authentication from localStorage
+      localStorage.removeItem('cuptrack_demo_auth');
+      
       setUser(null);
       setIsAuthenticated(false);
       setLoading(false);
