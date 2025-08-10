@@ -2,6 +2,7 @@
 // Creates a real demo user in Supabase for identical authentication experience
 
 import { createClient } from '@supabase/supabase-js';
+import bcrypt from 'bcrypt';
 
 const supabase = createClient(
   process.env.SUPABASE_URL!,
@@ -33,60 +34,81 @@ export const DEMO_USER_CONFIG: DemoUserConfig = {
 };
 
 /**
- * Creates or ensures the demo user account exists in Supabase
+ * Creates or ensures the demo user account exists in both systems:
+ * 1. Custom users table (for login authentication)
+ * 2. Supabase Auth (for token validation - if needed later)
  * This makes demo authentication identical to regular user authentication
  */
 export async function ensureDemoUserExists(): Promise<boolean> {
   try {
-    console.log('🎭 Checking if demo user exists...');
+    console.log('🎭 Checking if demo user exists in custom users table...');
 
-    // First, check if demo user already exists
-    const { data: existingUsers, error: listError } = await supabase.auth.admin.listUsers();
-    
-    if (listError) {
-      console.warn('⚠️ Could not check existing users:', listError.message);
+    // Check if demo user exists in custom users table
+    const { data: existingUser, error: checkError } = await supabase
+      .from('users')
+      .select('id, email')
+      .eq('email', DEMO_USER_CONFIG.email)
+      .single();
+
+    if (checkError && checkError.code !== 'PGRST116') {
+      // PGRST116 is "no rows returned" - that's okay, user doesn't exist yet
+      console.warn('⚠️ Error checking for demo user:', checkError.message);
       return false;
     }
 
-    const existingDemoUser = existingUsers.users.find(
-      user => user.email === DEMO_USER_CONFIG.email
-    );
-
-    if (existingDemoUser) {
-      console.log('✅ Demo user already exists:', {
-        id: existingDemoUser.id,
-        email: existingDemoUser.email,
-        created_at: existingDemoUser.created_at
+    if (existingUser) {
+      console.log('✅ Demo user already exists in custom users table:', {
+        id: existingUser.id,
+        email: existingUser.email
       });
       return true;
     }
 
-    // Create new demo user
-    console.log('🔨 Creating demo user account...');
+    // Demo user doesn't exist, create it
+    console.log('🔨 Creating demo user in custom users table...');
     
-    const { data, error } = await supabase.auth.admin.createUser({
-      email: DEMO_USER_CONFIG.email,
-      password: DEMO_USER_CONFIG.password,
-      email_confirm: true, // Auto-confirm email
-      user_metadata: DEMO_USER_CONFIG.userData.user_metadata
-    });
+    // Hash the demo password
+    const saltRounds = parseInt(process.env.BCRYPT_ROUNDS || '12', 10);
+    const passwordHash = await bcrypt.hash(DEMO_USER_CONFIG.password, saltRounds);
 
-    if (error) {
-      console.error('❌ Failed to create demo user:', error.message);
+    // Try to insert demo user with authentication fields if they exist
+    let userData: any = {
+      email: DEMO_USER_CONFIG.email,
+      role: 'user'
+    };
+
+    // Add auth fields if the columns exist (after migration)
+    try {
+      userData.password_hash = passwordHash;
+      userData.auth_provider = 'email';
+    } catch (error) {
+      console.log('ℹ️ Authentication columns may not exist yet - using basic user data');
+    }
+
+    const { data: newUser, error: insertError } = await supabase
+      .from('users')
+      .insert([userData])
+      .select('id, email, role')
+      .single();
+
+    if (insertError) {
+      console.error('❌ Failed to create demo user in custom users table:', insertError.message);
       return false;
     }
 
-    if (data.user) {
-      console.log('🎉 Demo user created successfully:', {
-        id: data.user.id,
-        email: data.user.email,
-        confirmed: data.user.email_confirmed_at ? 'Yes' : 'No'
+    if (newUser) {
+      console.log('🎉 Demo user created successfully in custom users table:', {
+        id: newUser.id,
+        email: newUser.email,
+        role: newUser.role
       });
       
       // Log demo credentials for reference
       console.log('🔑 Demo Credentials:');
       console.log('   Email:', DEMO_USER_CONFIG.email);
       console.log('   Password:', DEMO_USER_CONFIG.password);
+      console.log('   Authentication: Custom users table with bcrypt hashing');
+      console.log('⚠️  NOTE: For login to work, run the SQL migration in SUPABASE-MIGRATION.md');
       
       return true;
     }

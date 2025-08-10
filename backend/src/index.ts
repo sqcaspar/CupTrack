@@ -8,6 +8,7 @@ import { performHealthCheck, validateEnvironment } from './utils/environment';
 import { rateLimitMiddleware, inputValidationMiddleware, securityHeaders } from './middleware/security';
 import { validateCorsOrigin } from './utils/platform-integration';
 import { ensureDemoUserExists } from './utils/demo-user';
+import { performDatabaseMigrations } from './utils/database-migration';
 
 // Load environment variables
 const envFile = process.env.NODE_ENV === 'production' ? '.env' : '.env.development';
@@ -182,13 +183,21 @@ if (process.env.NODE_ENV !== 'test') {
     console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);
     console.log(`🔗 Health check: http://localhost:${PORT}/health`);
     
-    // Initialize demo user account for identical authentication experience
-    console.log('\n🎭 Demo User Initialization:');
-    const demoUserCreated = await ensureDemoUserExists();
-    if (demoUserCreated) {
-      console.log('✅ Demo user ready for identical authentication experience');
+    // Initialize database and demo user for identical authentication experience
+    console.log('\n🗄️ Database Migration:');
+    const migrationSuccess = await performDatabaseMigrations();
+    if (migrationSuccess) {
+      console.log('✅ Database schema ready for authentication system');
+      
+      console.log('\n🎭 Demo User Initialization:');
+      const demoUserCreated = await ensureDemoUserExists();
+      if (demoUserCreated) {
+        console.log('✅ Demo user ready for identical authentication experience');
+      } else {
+        console.warn('⚠️ Demo user setup failed - demo authentication may not work');
+      }
     } else {
-      console.warn('⚠️ Demo user setup failed - demo authentication may not work');
+      console.warn('⚠️ Database migration failed - authentication system may not work properly');
     }
   });
 }
