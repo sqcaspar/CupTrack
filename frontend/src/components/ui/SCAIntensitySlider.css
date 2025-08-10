@@ -1,0 +1,329 @@
+/* SCA Intensity Slider Component - 15-point scale (0-15) */
+.sca-intensity-slider {
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.sca-intensity-slider:hover {
+  border-color: #666;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sca-intensity-slider:focus-within {
+  border-color: #333;
+  box-shadow: 0 0 0 2px rgba(51, 51, 51, 0.2);
+}
+
+.sca-intensity-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.sca-intensity-label {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.sca-intensity-value {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.value-number {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #34495e;
+  min-width: 24px;
+  text-align: center;
+}
+
+.direction-arrow {
+  font-size: 1rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.arrow-up {
+  color: #27ae60;
+  animation: arrowPulse 0.5s ease-in-out;
+}
+
+.arrow-down {
+  color: #e74c3c;
+  animation: arrowPulse 0.5s ease-in-out;
+}
+
+@keyframes arrowPulse {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Slider Track */
+.sca-intensity-track {
+  position: relative;
+  height: 60px;
+  cursor: pointer;
+  outline: none;
+  padding: 15px 0;
+  margin: 8px 0;
+}
+
+.sca-intensity-track:focus {
+  outline: none;
+}
+
+.sca-intensity-track.dragging {
+  cursor: grabbing;
+}
+
+.sca-intensity-background {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, 
+    #ecf0f1 0%, 
+    #bdc3c7 25%, 
+    #7f8c8d 50%, 
+    #95a5a6 75%, 
+    #2c3e50 100%
+  );
+  border-radius: 3px;
+  transform: translateY(-50%);
+  opacity: 0.4;
+}
+
+/* Scale Markers */
+.sca-intensity-markers {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+}
+
+.scale-marker {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.marker-line {
+  width: 2px;
+  height: 12px;
+  background: #7f8c8d;
+  margin-bottom: 4px;
+}
+
+.marker-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #7f8c8d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.marker-number {
+  font-size: 0.65rem;
+  color: #95a5a6;
+  font-weight: 500;
+}
+
+.scale-marker.medium .marker-line {
+  background: #34495e;
+  height: 14px;
+}
+
+.scale-marker.medium .marker-label {
+  color: #34495e;
+}
+
+/* Numerical scale markers */
+.sca-intensity-numbers {
+  position: absolute;
+  top: 65%;
+  left: 0;
+  right: 0;
+  height: 20px;
+}
+
+.number-marker {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: #95a5a6;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.number-marker.active {
+  color: #2c3e50;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* Draggable Thumb */
+.sca-intensity-thumb {
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border: 3px solid #34495e;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  transition: all 0.2s ease;
+  z-index: 10;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.sca-intensity-thumb:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+  border-color: #2c3e50;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.sca-intensity-thumb.dragging {
+  cursor: grabbing;
+  transform: translate(-50%, -50%) scale(1.15);
+  border-color: #2c3e50;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+}
+
+.thumb-inner {
+  width: 100%;
+  height: 100%;
+  background: #f8f9fa;
+  border-radius: 50%;
+  transform: scale(0.5);
+  transition: all 0.2s ease;
+}
+
+.sca-intensity-thumb:hover .thumb-inner {
+  transform: scale(0.6);
+  background: #ecf0f1;
+}
+
+.sca-intensity-thumb.dragging .thumb-inner {
+  transform: scale(0.7);
+  background: #34495e;
+}
+
+/* Scale Labels */
+.sca-intensity-scale-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding: 0 10px;
+}
+
+.sca-intensity-scale-labels span {
+  font-size: 0.7rem;
+  color: #7f8c8d;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Touch Support */
+@media (hover: none) and (pointer: coarse) {
+  .sca-intensity-thumb {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .sca-intensity-track {
+    padding: 18px 0;
+    height: 64px;
+  }
+  
+  .marker-label {
+    font-size: 0.75rem;
+  }
+  
+  .number-marker {
+    font-size: 0.75rem;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .sca-intensity-slider {
+    margin-bottom: 16px;
+    padding: 12px 16px;
+  }
+  
+  .sca-intensity-header {
+    margin-bottom: 10px;
+  }
+  
+  .sca-intensity-label {
+    font-size: 0.9rem;
+  }
+  
+  .value-number {
+    font-size: 1rem;
+  }
+  
+  .sca-intensity-track {
+    height: 56px;
+    margin: 6px 0;
+  }
+  
+  .sca-intensity-thumb {
+    width: 22px;
+    height: 22px;
+  }
+  
+  .marker-label {
+    font-size: 0.65rem;
+  }
+  
+  .number-marker {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sca-intensity-slider {
+    padding: 10px 12px;
+    margin-bottom: 14px;
+  }
+  
+  .sca-intensity-label {
+    font-size: 0.85rem;
+  }
+  
+  .value-number {
+    font-size: 0.95rem;
+  }
+  
+  .sca-intensity-track {
+    height: 52px;
+  }
+  
+  .marker-label {
+    font-size: 0.6rem;
+  }
+  
+  .number-marker {
+    font-size: 0.6rem;
+  }
+}

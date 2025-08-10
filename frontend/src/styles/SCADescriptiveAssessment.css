@@ -1,0 +1,359 @@
+/* SCA CVA Descriptive Assessment - Official SCA Standard 103-P/2024 Styling */
+
+.sca-cva-descriptive-evaluation {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Assessment Header */
+.sca-assessment-header {
+  text-align: center;
+  margin-bottom: 24px;
+  padding: 20px;
+  background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+  color: white;
+  border-radius: 12px;
+}
+
+.sca-assessment-header h4 {
+  margin: 0 0 8px 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.assessment-description {
+  margin: 0;
+  font-size: 0.95rem;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+/* Assessment Metadata */
+.sca-assessment-metadata {
+  margin-bottom: 24px;
+  padding: 16px;
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+}
+
+.metadata-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+/* Cupping Sections */
+.sca-cupping-sections {
+  display: grid;
+  gap: 24px;
+}
+
+.sca-cupping-section {
+  padding: 20px;
+  background: white;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.sca-cupping-section:hover {
+  border-color: #3498db;
+  box-shadow: 0 4px 16px rgba(52, 152, 219, 0.1);
+}
+
+.section-title {
+  margin: 0 0 8px 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2c3e50;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-description {
+  margin: 0 0 16px 0;
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  font-style: italic;
+  line-height: 1.3;
+}
+
+.section-intensity {
+  margin-bottom: 16px;
+}
+
+/* Specialized Section Styling */
+.sca-cupping-section.fragrance {
+  border-left: 4px solid #e74c3c;
+  background: linear-gradient(135deg, #fff 0%, #fdedec 100%);
+}
+
+.sca-cupping-section.aroma {
+  border-left: 4px solid #f39c12;
+  background: linear-gradient(135deg, #fff 0%, #fef9e7 100%);
+}
+
+.sca-cupping-section.flavor {
+  border-left: 4px solid #27ae60;
+  background: linear-gradient(135deg, #fff 0%, #eafaf1 100%);
+}
+
+.sca-cupping-section.aftertaste {
+  border-left: 4px solid #2ecc71;
+  background: linear-gradient(135deg, #fff 0%, #e8f8f5 100%);
+}
+
+.sca-cupping-section.acidity {
+  border-left: 4px solid #f1c40f;
+  background: linear-gradient(135deg, #fff 0%, #fefbd8 100%);
+}
+
+.sca-cupping-section.sweetness {
+  border-left: 4px solid #e91e63;
+  background: linear-gradient(135deg, #fff 0%, #fce4ec 100%);
+}
+
+.sca-cupping-section.mouthfeel {
+  border-left: 4px solid #9b59b6;
+  background: linear-gradient(135deg, #fff 0%, #f4ecf7 100%);
+}
+
+/* Flavor Descriptors Grid */
+.flavor-descriptors-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* Shared Descriptors Note */
+.shared-descriptors-note {
+  margin: 16px 0;
+  padding: 12px;
+  background: #e8f4fd;
+  border: 1px solid #d6eaf8;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.shared-descriptors-note span {
+  font-size: 0.8rem;
+  color: #2980b9;
+  font-weight: 500;
+}
+
+/* SCA Assessment Information */
+.sca-assessment-info {
+  margin-top: 32px;
+  padding: 20px;
+  background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+  color: white;
+  border-radius: 12px;
+}
+
+.sca-assessment-info h5 {
+  margin: 0 0 16px 0;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.methodology-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.methodology-item {
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.methodology-item h6 {
+  margin: 0 0 8px 0;
+  font-size: 0.95rem;
+  color: #ecf0f1;
+  font-weight: 600;
+}
+
+.methodology-item p {
+  margin: 0;
+  font-size: 0.8rem;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+/* Form Elements */
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.form-select,
+.form-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 2px solid #e9ecef;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.form-select:focus,
+.form-input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.form-textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 2px solid #e9ecef;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-family: inherit;
+  resize: vertical;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.form-textarea:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.form-textarea::placeholder {
+  color: #95a5a6;
+  font-style: italic;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .sca-cva-descriptive-evaluation {
+    padding: 16px 12px;
+  }
+  
+  .sca-assessment-header {
+    padding: 16px;
+  }
+  
+  .sca-assessment-header h4 {
+    font-size: 1.2rem;
+  }
+  
+  .assessment-description {
+    font-size: 0.9rem;
+  }
+  
+  .sca-cupping-section {
+    padding: 16px;
+  }
+  
+  .section-title {
+    font-size: 1rem;
+  }
+  
+  .section-description {
+    font-size: 0.8rem;
+  }
+  
+  .flavor-descriptors-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .metadata-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .methodology-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .sca-cva-descriptive-evaluation {
+    padding: 12px 8px;
+  }
+  
+  .sca-assessment-header {
+    padding: 12px;
+  }
+  
+  .sca-assessment-header h4 {
+    font-size: 1.1rem;
+  }
+  
+  .assessment-description {
+    font-size: 0.85rem;
+  }
+  
+  .sca-cupping-section {
+    padding: 12px;
+    border-left-width: 3px;
+  }
+  
+  .section-title {
+    font-size: 0.95rem;
+  }
+  
+  .section-description {
+    font-size: 0.75rem;
+  }
+  
+  .shared-descriptors-note {
+    padding: 8px;
+  }
+  
+  .shared-descriptors-note span {
+    font-size: 0.75rem;
+  }
+  
+  .form-label {
+    font-size: 0.85rem;
+  }
+  
+  .form-select,
+  .form-input,
+  .form-textarea {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .sca-cva-descriptive-evaluation {
+    padding: 0;
+  }
+  
+  .sca-assessment-header,
+  .sca-cupping-section,
+  .sca-assessment-info {
+    background: white !important;
+    border: 1px solid #333 !important;
+    box-shadow: none !important;
+  }
+  
+  .sca-assessment-header {
+    color: #333 !important;
+  }
+  
+  .sca-assessment-info {
+    color: #333 !important;
+  }
+}

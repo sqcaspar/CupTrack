@@ -1,0 +1,292 @@
+/* TASK-008B: Collections & Organization - Favorite Button Styles */
+/* Rapid Iteration: Heart icon with smooth animations and hover effects */
+
+.favorite-button {
+  position: relative;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  overflow: hidden;
+  color: var(--color-text-secondary);
+}
+
+.favorite-button:hover {
+  background: var(--color-background-light);
+  transform: scale(1.1);
+}
+
+.favorite-button:active {
+  transform: scale(0.95);
+}
+
+.favorite-button.favorite-disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.favorite-button.favorite-disabled:hover {
+  background: transparent;
+  transform: none;
+}
+
+/* Size Variants */
+.favorite-button-small {
+  padding: 4px;
+}
+
+.favorite-button-small .favorite-icon-container {
+  font-size: 1rem;
+}
+
+.favorite-button-small .favorite-label {
+  font-size: 0.75rem;
+}
+
+.favorite-button-medium {
+  padding: 6px;
+}
+
+.favorite-button-medium .favorite-icon-container {
+  font-size: 1.25rem;
+}
+
+.favorite-button-medium .favorite-label {
+  font-size: 0.875rem;
+}
+
+.favorite-button-large {
+  padding: 10px;
+}
+
+.favorite-button-large .favorite-icon-container {
+  font-size: 1.5rem;
+}
+
+.favorite-button-large .favorite-label {
+  font-size: 1rem;
+}
+
+/* Icon Container */
+.favorite-icon-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.favorite-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  user-select: none;
+}
+
+.favorite-icon-outline {
+  opacity: 1;
+  color: var(--color-text-secondary);
+}
+
+.favorite-icon-filled {
+  opacity: 0;
+  color: var(--color-danger);
+  transform: translate(-50%, -50%) scale(0.8);
+}
+
+/* Active State */
+.favorite-button.favorite-active .favorite-icon-outline {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+.favorite-button.favorite-active .favorite-icon-filled {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.favorite-button.favorite-active {
+  color: var(--color-danger);
+}
+
+.favorite-button.favorite-active:hover {
+  background: var(--color-danger-light);
+}
+
+/* Animation States */
+.favorite-button.favorite-animating .favorite-icon-container {
+  animation: favoritePopAnimation 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes favoritePopAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Loading Spinner */
+.favorite-spinner {
+  width: 1em;
+  height: 1em;
+  border: 2px solid var(--color-border-light);
+  border-top: 2px solid var(--color-primary);
+  border-radius: 50%;
+  animation: favoriteSpinnerRotation 0.8s linear infinite;
+}
+
+@keyframes favoriteSpinnerRotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Label */
+.favorite-label {
+  font-weight: 500;
+  color: inherit;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.favorite-button.favorite-active .favorite-label {
+  color: var(--color-danger);
+}
+
+/* Ripple Effect */
+.favorite-ripple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: var(--color-primary);
+  opacity: 0;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.favorite-button:active .favorite-ripple {
+  animation: favoriteRippleEffect 0.4s ease-out;
+}
+
+@keyframes favoriteRippleEffect {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0.3;
+  }
+  100% {
+    width: 40px;
+    height: 40px;
+    opacity: 0;
+  }
+}
+
+/* Hover Effects */
+.favorite-button:hover .favorite-icon-outline {
+  color: var(--color-danger);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.favorite-button.favorite-active:hover .favorite-icon-filled {
+  transform: translate(-50%, -50%) scale(1.1);
+  filter: brightness(1.1);
+}
+
+/* Focus States for Accessibility */
+.favorite-button:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.favorite-button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .favorite-button {
+    padding: 6px;
+  }
+  
+  .favorite-button-small {
+    padding: 3px;
+  }
+  
+  .favorite-button-large {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .favorite-button {
+    padding: 4px;
+  }
+  
+  .favorite-label {
+    display: none; /* Hide labels on very small screens */
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .favorite-button:hover {
+    background: var(--color-background-dark, var(--color-background-light));
+  }
+  
+  .favorite-button.favorite-active:hover {
+    background: var(--color-danger-dark, var(--color-danger-light));
+  }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .favorite-button {
+    border: 1px solid var(--color-text-secondary);
+  }
+  
+  .favorite-button.favorite-active {
+    border-color: var(--color-danger);
+    background: var(--color-danger);
+  }
+  
+  .favorite-button.favorite-active .favorite-icon-filled {
+    color: white;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .favorite-button,
+  .favorite-icon,
+  .favorite-icon-container {
+    transition: none;
+    animation: none;
+  }
+  
+  .favorite-button.favorite-animating .favorite-icon-container {
+    animation: none;
+  }
+  
+  .favorite-ripple {
+    display: none;
+  }
+}

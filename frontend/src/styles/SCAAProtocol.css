@@ -1,0 +1,349 @@
+/* SCAA Cupping Protocols 2005 - Official SCA Protocol Styling */
+.scaa-cupping-evaluation {
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.scaa-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+  color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(139, 69, 19, 0.15);
+}
+
+.scaa-header h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.scaa-description {
+  margin: 0;
+  font-size: 1rem;
+  opacity: 0.95;
+  line-height: 1.5;
+}
+
+.scaa-procedure-guide {
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.scaa-procedure-guide h5 {
+  margin: 0 0 1rem 0;
+  color: #8B4513;
+  font-size: 1.2rem;
+}
+
+.procedure-steps {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.procedure-step {
+  padding: 0.75rem;
+  background: white;
+  border-left: 4px solid #8B4513;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.procedure-step strong {
+  color: #8B4513;
+}
+
+.scaa-attributes-grid {
+  margin-bottom: 2rem;
+}
+
+.scaa-attributes-grid > h5 {
+  margin: 0 0 1.5rem 0;
+  color: #8B4513;
+  font-size: 1.3rem;
+  text-align: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.attributes-section {
+  margin-bottom: 2rem;
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.attributes-section h6 {
+  margin: 0;
+  padding: 1rem 1.5rem;
+  background: #8B4513;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.attributes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.attribute-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.attribute-label {
+  font-weight: 600;
+  color: #495057;
+  font-size: 0.95rem;
+}
+
+.scaa-score-input {
+  padding: 0.75rem;
+  border: 2px solid #e9ecef;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  background: white;
+  transition: all 0.2s ease;
+  width: 100px;
+}
+
+.scaa-score-input:focus {
+  outline: none;
+  border-color: #8B4513;
+  box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+}
+
+.scaa-score-input:hover {
+  border-color: #A0522D;
+}
+
+.score-hint {
+  font-size: 0.85rem;
+  color: #6c757d;
+  font-style: italic;
+}
+
+.scaa-defects-section {
+  background: #fff5f5;
+  border: 2px solid #fed7d7;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.scaa-defects-section h5 {
+  margin: 0 0 1.5rem 0;
+  color: #c53030;
+  font-size: 1.2rem;
+}
+
+.defects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.defect-category {
+  background: white;
+  border: 1px solid #fed7d7;
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+.defect-category h6 {
+  margin: 0 0 1rem 0;
+  color: #c53030;
+  font-size: 1rem;
+}
+
+.defect-input-group {
+  margin-bottom: 1rem;
+}
+
+.defect-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #495057;
+  font-size: 0.9rem;
+}
+
+.defect-count-input {
+  width: 80px;
+  padding: 0.5rem;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.defect-count-input:focus {
+  outline: none;
+  border-color: #c53030;
+  box-shadow: 0 0 0 2px rgba(197, 48, 48, 0.1);
+}
+
+.defect-types {
+  margin-top: 1rem;
+}
+
+.defect-select {
+  width: 100%;
+  min-height: 100px;
+  padding: 0.5rem;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.defect-select:focus {
+  outline: none;
+  border-color: #c53030;
+  box-shadow: 0 0 0 2px rgba(197, 48, 48, 0.1);
+}
+
+.defects-penalty {
+  background: white;
+  border: 2px solid #c53030;
+  border-radius: 6px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.defects-penalty strong {
+  font-size: 1.1rem;
+  color: #c53030;
+}
+
+.penalty-breakdown {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.scaa-final-score {
+  background: linear-gradient(135deg, #155724 0%, #28a745 100%);
+  color: white;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(21, 87, 36, 0.15);
+}
+
+.score-display h5 {
+  margin: 0 0 1rem 0;
+  font-size: 1.3rem;
+  opacity: 0.95;
+}
+
+.score-value {
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.quality-classification {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+}
+
+.score-breakdown {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1.5rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.breakdown-line {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.breakdown-line.total {
+  border-top: 2px solid rgba(255, 255, 255, 0.3);
+  margin-top: 1rem;
+  padding-top: 1rem;
+  font-size: 1.1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .defects-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .attributes-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .scaa-header {
+    padding: 1rem;
+  }
+  
+  .scaa-header h4 {
+    font-size: 1.2rem;
+  }
+  
+  .score-value {
+    font-size: 2.5rem;
+  }
+  
+  .scaa-final-score {
+    padding: 1.5rem;
+  }
+}
+
+/* Accessibility */
+.scaa-score-input:focus,
+.defect-count-input:focus,
+.defect-select:focus {
+  outline: 3px solid rgba(139, 69, 19, 0.5);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scaa-score-input,
+  .defect-count-input {
+    transition: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .scaa-header {
+    background: #000;
+    border: 2px solid #fff;
+  }
+  
+  .attributes-section h6 {
+    background: #000;
+  }
+  
+  .scaa-final-score {
+    background: #006600;
+    border: 2px solid #fff;
+  }
+}

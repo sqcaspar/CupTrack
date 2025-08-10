@@ -1,0 +1,453 @@
+/* TASK-008B: Collections & Organization - Collection Modal Styles */
+/* Rapid Iteration: Modal with form styling and color picker */
+
+.collection-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: modalOverlayAppear 0.2s ease;
+}
+
+@keyframes modalOverlayAppear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.collection-modal {
+  background: var(--color-white);
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalAppear 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Modal Header */
+.collection-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px 16px 24px;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.collection-modal-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.collection-modal-close {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: var(--color-background-light);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--color-text-secondary);
+  transition: all 0.2s ease;
+}
+
+.collection-modal-close:hover {
+  background: var(--color-danger-light);
+  color: var(--color-danger);
+  transform: scale(1.1);
+}
+
+/* Modal Form */
+.collection-modal-form {
+  padding: 24px;
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: 8px;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 1rem;
+  color: var(--color-text-primary);
+  background: var(--color-white);
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.form-input-error {
+  border-color: var(--color-danger) !important;
+  box-shadow: 0 0 0 3px var(--color-danger-light) !important;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-error {
+  color: var(--color-danger);
+  font-size: 0.8rem;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.form-error::before {
+  content: '⚠️';
+  font-size: 0.75rem;
+}
+
+.form-error-general {
+  background: var(--color-danger-light);
+  color: var(--color-danger-dark);
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  margin-bottom: 20px;
+  border: 1px solid var(--color-danger);
+}
+
+.form-helper {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  margin-top: 4px;
+  text-align: right;
+}
+
+/* Color Picker */
+.color-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+.color-picker-item {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.color-picker-item:hover {
+  transform: scale(1.1);
+  border-color: var(--color-text-secondary);
+}
+
+.color-picker-item.selected {
+  border-color: var(--color-text-primary);
+  transform: scale(1.1);
+  box-shadow: 0 0 0 2px var(--color-white), 0 0 0 4px var(--color-primary);
+}
+
+.color-picker-item.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Brew Selection */
+.brew-selection-list {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.brew-selection-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.brew-selection-item:hover {
+  background: var(--color-background-light);
+}
+
+.brew-selection-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--color-primary);
+}
+
+.brew-selection-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brew-selection-brand {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-size: 0.875rem;
+}
+
+.brew-selection-name {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+/* Modal Actions */
+.collection-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn-secondary {
+  background: var(--color-background-light);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--color-border-light);
+  border-color: var(--color-text-secondary);
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(100, 200, 150, 0.3);
+}
+
+.btn-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: btnSpinnerRotation 0.8s linear infinite;
+}
+
+@keyframes btnSpinnerRotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .collection-modal {
+    width: 95%;
+    max-height: 95vh;
+    border-radius: 8px;
+  }
+
+  .collection-modal-header {
+    padding: 20px 20px 12px 20px;
+  }
+
+  .collection-modal-title {
+    font-size: 1.25rem;
+  }
+
+  .collection-modal-form {
+    padding: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .color-picker-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  .color-picker-item {
+    width: 35px;
+    height: 35px;
+  }
+
+  .collection-modal-actions {
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .collection-modal {
+    width: 98%;
+    max-height: 98vh;
+    border-radius: 6px;
+  }
+
+  .collection-modal-header {
+    padding: 16px;
+  }
+
+  .collection-modal-title {
+    font-size: 1.125rem;
+  }
+
+  .collection-modal-form {
+    padding: 16px;
+  }
+
+  .form-input,
+  .form-textarea {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .color-picker-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .color-picker-item {
+    width: 32px;
+    height: 32px;
+  }
+
+  .brew-selection-list {
+    max-height: 150px;
+  }
+
+  .brew-selection-item {
+    padding: 6px;
+  }
+}
+
+/* Focus states for accessibility */
+.form-input:focus,
+.form-textarea:focus,
+.color-picker-item:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.btn:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Smooth transitions */
+.collection-modal * {
+  box-sizing: border-box;
+}
+
+.collection-modal-overlay.closing {
+  animation: modalOverlayDisappear 0.2s ease forwards;
+}
+
+@keyframes modalOverlayDisappear {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.collection-modal.closing {
+  animation: modalDisappear 0.2s ease forwards;
+}
+
+@keyframes modalDisappear {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+}

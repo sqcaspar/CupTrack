@@ -1,0 +1,246 @@
+/* iPhone-style Time Picker Component Styles */
+
+.time-picker-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  padding: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.time-picker-input.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.time-picker-input:focus-within {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* Individual Time Wheel Styling */
+.time-wheel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60px;
+}
+
+.wheel-container {
+  position: relative;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  outline: none;
+  border-radius: 8px;
+  background: transparent;
+  touch-action: pan-y;
+}
+
+.wheel-container::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+/* Wheel Options */
+.wheel-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 400;
+  color: #8e8e93;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.wheel-option.selected {
+  color: #000000;
+  font-weight: 500;
+  transform: scale(1.1);
+}
+
+.wheel-option:hover:not(.selected) {
+  color: #5a5a5f;
+  transform: scale(1.05);
+}
+
+.wheel-padding {
+  flex-shrink: 0;
+}
+
+/* Selection Overlay - creates the iPhone-style selection highlight */
+.wheel-selection-overlay {
+  position: absolute;
+  top: 50%;
+  left: -4px;
+  right: -4px;
+  height: 40px;
+  transform: translateY(-50%);
+  background: rgba(0, 123, 255, 0.1);
+  border: 1px solid rgba(0, 123, 255, 0.3);
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Wheel Labels */
+.wheel-label {
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #8e8e93;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Time Separators (colons) */
+.time-separator {
+  font-size: 28px;
+  font-weight: 300;
+  color: #000000;
+  margin: 0 8px;
+  display: flex;
+  align-items: center;
+  height: 120px; /* Match wheel container height */
+  user-select: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .time-picker-input {
+    padding: 12px;
+  }
+  
+  .wheel-option {
+    font-size: 20px;
+  }
+  
+  .time-separator {
+    font-size: 24px;
+    margin: 0 4px;
+  }
+  
+  .time-wheel {
+    min-width: 50px;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .time-picker-input {
+    background: #1c1c1e;
+    border-color: #38383a;
+  }
+  
+  .wheel-option {
+    color: #8e8e93;
+  }
+  
+  .wheel-option.selected {
+    color: #ffffff;
+  }
+  
+  .wheel-option:hover:not(.selected) {
+    color: #aeaeb2;
+  }
+  
+  .time-separator {
+    color: #ffffff;
+  }
+  
+  .wheel-selection-overlay {
+    background: rgba(0, 123, 255, 0.15);
+    border-color: rgba(0, 123, 255, 0.4);
+  }
+}
+
+/* Focus states for accessibility */
+.wheel-container:focus {
+  outline: none;
+}
+
+.wheel-container:focus-visible {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Smooth scrolling animations */
+.wheel-container {
+  scroll-snap-type: y mandatory;
+}
+
+.wheel-option {
+  scroll-snap-align: center;
+}
+
+/* Fade effect for non-selected options */
+.time-wheel::before,
+.time-wheel::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 40px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.time-wheel::before {
+  top: 0;
+  background: linear-gradient(to bottom, rgba(248, 249, 250, 1), rgba(248, 249, 250, 0));
+}
+
+.time-wheel::after {
+  bottom: 32px; /* Account for label height */
+  background: linear-gradient(to top, rgba(248, 249, 250, 1), rgba(248, 249, 250, 0));
+}
+
+@media (prefers-color-scheme: dark) {
+  .time-wheel::before {
+    background: linear-gradient(to bottom, rgba(28, 28, 30, 1), rgba(28, 28, 30, 0));
+  }
+  
+  .time-wheel::after {
+    background: linear-gradient(to top, rgba(28, 28, 30, 1), rgba(28, 28, 30, 0));
+  }
+}
+
+/* Animation for smooth value changes */
+.wheel-option {
+  animation: none;
+}
+
+.wheel-option.selected {
+  animation: selectPulse 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes selectPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1.1); }
+}
+
+/* Improve touch targets on mobile */
+@media (hover: none) and (pointer: coarse) {
+  .wheel-option {
+    padding: 4px 8px;
+    min-height: 48px;
+  }
+  
+  .wheel-container {
+    cursor: default;
+  }
+}

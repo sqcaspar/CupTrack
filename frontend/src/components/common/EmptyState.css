@@ -1,0 +1,181 @@
+/* Empty State Component Styles */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 20px;
+  min-height: 300px;
+}
+
+.empty-state-icon {
+  font-size: 64px;
+  margin-bottom: 24px;
+  opacity: 0.8;
+}
+
+.empty-state-content {
+  max-width: 400px;
+}
+
+.empty-state-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+}
+
+.empty-state-message {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.5;
+  margin: 0 0 32px 0;
+}
+
+.empty-state-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.empty-state-button {
+  border: none;
+  border-radius: 6px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: none;
+  min-width: 160px;
+}
+
+.empty-state-button.primary {
+  background: #007bff;
+  color: white;
+}
+
+.empty-state-button.primary:hover {
+  background: #0056b3;
+  transform: translateY(-1px);
+}
+
+.empty-state-button.secondary {
+  background: transparent;
+  color: #007bff;
+  border: 1px solid #007bff;
+}
+
+.empty-state-button.secondary:hover {
+  background: #007bff;
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .empty-state {
+    padding: 40px 16px;
+    min-height: 250px;
+  }
+  
+  .empty-state-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+  
+  .empty-state-title {
+    font-size: 20px;
+  }
+  
+  .empty-state-message {
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+  
+  .empty-state-button {
+    padding: 10px 20px;
+    font-size: 13px;
+    min-width: 140px;
+  }
+}
+
+@media (max-width: 480px) {
+  .empty-state {
+    padding: 32px 16px;
+    min-height: 200px;
+  }
+  
+  .empty-state-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+  }
+  
+  .empty-state-title {
+    font-size: 18px;
+  }
+  
+  .empty-state-actions {
+    width: 100%;
+  }
+  
+  .empty-state-button {
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+/* Focus states for accessibility */
+.empty-state-button:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .empty-state-title {
+    color: #000;
+  }
+  
+  .empty-state-message {
+    color: #000;
+  }
+  
+  .empty-state-button.primary {
+    border: 2px solid #007bff;
+  }
+  
+  .empty-state-button.secondary {
+    border: 2px solid #007bff;
+  }
+}
+
+/* Animation */
+.empty-state {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .empty-state {
+    animation: none;
+  }
+  
+  .empty-state-button:hover {
+    transform: none;
+  }
+}

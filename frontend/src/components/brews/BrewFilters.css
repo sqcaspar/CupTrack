@@ -1,0 +1,389 @@
+/* Brew Filters Component Styles */
+.brew-filters {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e9ecef;
+}
+
+.filters-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.filters-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.results-count {
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+}
+
+.active-filters {
+  font-size: 12px;
+  color: #666;
+  background: #f8f9fa;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.clear-filters-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.clear-filters-btn:hover:not(:disabled) {
+  background: #c82333;
+}
+
+.clear-filters-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.filters-row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;
+  margin-bottom: 16px;
+}
+
+.filters-row.secondary {
+  margin-bottom: 0;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.search-section {
+  flex: 1;
+  max-width: 400px;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 40px 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.search-input:disabled {
+  background-color: #f8f9fa;
+  opacity: 0.6;
+}
+
+.search-icon {
+  position: absolute;
+  right: 12px;
+  color: #666;
+  pointer-events: none;
+}
+
+.filter-controls {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 120px;
+}
+
+.filter-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.filter-select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  background: white;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.filter-select:disabled {
+  background-color: #f8f9fa;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.toggle-filters {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.toggle-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #555;
+  user-select: none;
+}
+
+.toggle-filter input[type="checkbox"] {
+  display: none;
+}
+
+.toggle-checkmark {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ddd;
+  border-radius: 3px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.toggle-filter input:checked + .toggle-checkmark {
+  background: #007bff;
+  border-color: #007bff;
+}
+
+.toggle-filter input:checked + .toggle-checkmark::after {
+  content: '✓';
+  position: absolute;
+  top: -2px;
+  left: 2px;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.toggle-filter:hover .toggle-checkmark {
+  border-color: #007bff;
+}
+
+.date-filters {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.date-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.date-input {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 140px;
+  transition: border-color 0.2s ease;
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.date-input:disabled {
+  background-color: #f8f9fa;
+  opacity: 0.6;
+}
+
+.active-filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.filter-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 4px 8px;
+  border-radius: 16px;
+  font-size: 12px;
+  border: 1px solid #bbdefb;
+}
+
+.filter-chip button {
+  background: none;
+  border: none;
+  color: #1565c0;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.filter-chip button:hover {
+  background: rgba(21, 101, 192, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .filter-controls {
+    gap: 12px;
+  }
+  
+  .filter-group {
+    min-width: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .brew-filters {
+    padding: 16px;
+  }
+  
+  .filters-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  
+  .filters-row {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+  
+  .search-section {
+    max-width: none;
+  }
+  
+  .filter-controls {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  
+  .filter-group {
+    flex: 1;
+    min-width: 140px;
+  }
+  
+  .date-filters {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .date-filter-group {
+    width: 100%;
+  }
+  
+  .date-input {
+    width: 100%;
+  }
+  
+  .toggle-filters {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-controls {
+    flex-direction: column;
+  }
+  
+  .filter-group {
+    min-width: auto;
+  }
+  
+  .active-filter-chips {
+    justify-content: center;
+  }
+}
+
+/* Focus States for Accessibility */
+.clear-filters-btn:focus,
+.search-input:focus,
+.filter-select:focus,
+.date-input:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+.toggle-filter:focus-within .toggle-checkmark {
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+/* Loading State */
+.brew-filters.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .brew-filters {
+    border: 2px solid #000;
+  }
+  
+  .search-input,
+  .filter-select,
+  .date-input {
+    border: 2px solid #000;
+  }
+  
+  .toggle-checkmark {
+    border: 2px solid #000;
+  }
+  
+  .filter-chip {
+    border: 2px solid #000;
+  }
+}
