@@ -184,6 +184,7 @@ if (process.env.NODE_ENV !== 'test') {
     console.log(`🔗 Health check: http://localhost:${PORT}/health`);
     
     // Initialize database and demo user for identical authentication experience
+    // Database migration completed: password_hash and auth_provider columns added
     console.log('\n🗄️ Database Migration:');
     const migrationSuccess = await performDatabaseMigrations();
     if (migrationSuccess) {
