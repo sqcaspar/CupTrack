@@ -14,76 +14,8 @@ function getSupabaseClient() {
   return supabaseClient;
 }
 
-// Helper function to detect demo tokens
-function isDemoToken(token: string): boolean {
-  try {
-    // Demo tokens have a specific signature we can detect
-    const parts = token.split('.');
-    if (parts.length !== 3) return false;
-    
-    // Decode the payload to check for demo signature
-    const payload = JSON.parse(atob(parts[1]));
-    return payload.sub && payload.sub.startsWith('demo-user') && payload.email && payload.email.includes('@cuptrack.com');
-  } catch (error) {
-    return false;
-  }
-}
-
-// Validate demo tokens
-function validateDemoToken(token: string): TokenValidationResult {
-  try {
-    const parts = token.split('.');
-    if (parts.length !== 3) {
-      return {
-        success: false,
-        user: null,
-        error: 'Invalid demo token format',
-        shouldRefresh: false
-      };
-    }
-    
-    const payload = JSON.parse(atob(parts[1]));
-    
-    // Check if token is expired
-    const now = Math.floor(Date.now() / 1000);
-    if (payload.exp && payload.exp < now) {
-      return {
-        success: false,
-        user: null,
-        error: 'Demo token expired',
-        shouldRefresh: false
-      };
-    }
-    
-    // Create demo user object
-    const user: User = {
-      id: payload.sub,
-      email: payload.email,
-      role: 'authenticated'
-    };
-    
-    console.log('✅ Demo token validation successful:', {
-      userId: user.id,
-      email: user.email,
-      tokenExpiry: new Date(payload.exp * 1000).toISOString()
-    });
-    
-    return {
-      success: true,
-      user,
-      error: null,
-      shouldRefresh: false
-    };
-  } catch (error) {
-    console.error('❌ Demo token validation failed:', error);
-    return {
-      success: false,
-      user: null,
-      error: 'Invalid demo token',
-      shouldRefresh: false
-    };
-  }
-}
+// Demo users now use identical authentication flow through Supabase
+// No special demo token logic needed - demo@cuptrack.com is a real user account
 
 export async function validateSupabaseToken(token: string): Promise<TokenValidationResult> {
   if (!token) {
@@ -207,16 +139,8 @@ export async function authenticateUser(req: Request, res: Response, next: NextFu
       return;
     }
     
-    let result: TokenValidationResult;
-    
-    // Check if this is a demo token first
-    if (isDemoToken(token)) {
-      console.log('🎭 Detected demo token, using demo validation');
-      result = validateDemoToken(token);
-    } else {
-      console.log('🔑 Detected regular token, using Supabase validation');
-      result = await validateSupabaseToken(token);
-    }
+    // All users (including demo users) now use identical Supabase authentication
+    const result = await validateSupabaseToken(token);
     
     if (!result.success || !result.user) {
       if (result.shouldRefresh) {

@@ -7,6 +7,7 @@ import { performHealthCheck, validateEnvironment } from './utils/environment';
 // import { authenticateUser } from './middleware/auth'; // Used in routes
 import { rateLimitMiddleware, inputValidationMiddleware, securityHeaders } from './middleware/security';
 import { validateCorsOrigin } from './utils/platform-integration';
+import { ensureDemoUserExists } from './utils/demo-user';
 
 // Load environment variables
 const envFile = process.env.NODE_ENV === 'production' ? '.env' : '.env.development';
@@ -176,10 +177,19 @@ if (process.env.NODE_ENV !== 'test') {
     process.exit(1);
   }
 
-  app.listen(PORT, () => {
+  app.listen(PORT, async () => {
     console.log(`✅ CupTrack backend server running on port ${PORT}`);
     console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);
     console.log(`🔗 Health check: http://localhost:${PORT}/health`);
+    
+    // Initialize demo user account for identical authentication experience
+    console.log('\n🎭 Demo User Initialization:');
+    const demoUserCreated = await ensureDemoUserExists();
+    if (demoUserCreated) {
+      console.log('✅ Demo user ready for identical authentication experience');
+    } else {
+      console.warn('⚠️ Demo user setup failed - demo authentication may not work');
+    }
   });
 }
 
