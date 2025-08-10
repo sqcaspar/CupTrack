@@ -404,7 +404,27 @@ export const BrewWizard: React.FC<BrewWizardProps> = ({
       // Clear draft after successful submission
       localStorage.removeItem('cuptrack_brew_draft');
       
-      onComplete(newBrew.id);
+      // Show success message and then redirect
+      console.log('✅ Brew successfully saved to database:', newBrew);
+      
+      // Success message
+      const successMessage = `🎉 Brew Successfully Saved!\n\n` +
+        `✅ Your brew has been saved to the database\n` +
+        `✅ Brew ID: ${newBrew.id}\n` +
+        `✅ Coffee: ${brewData.beans?.brand} from ${brewData.beans?.origin}\n` +
+        `✅ Method: ${brewData.parameters?.brewingMethod}\n\n` +
+        `🔄 Redirecting to your brews list...`;
+      
+      setErrors({
+        submit: successMessage
+      });
+      setIsSubmitting(false);
+      setIsValidationComplete(true);
+      
+      // Redirect after showing success message
+      setTimeout(() => {
+        onComplete(newBrew.id);
+      }, 2000);
     } catch (error) {
       console.error('Failed to create brew:', error);
       
@@ -450,42 +470,29 @@ export const BrewWizard: React.FC<BrewWizardProps> = ({
             errorMessage = `Cannot submit brew. Please fix these validation issues:\n${errorMessages}`;
           }
         } else {
-          // No validation errors found - this means all data is valid!
-          // In development environment, show positive feedback instead of error
-          const brewSummary = {
-            beans: brewData.beans,
-            parameters: brewData.parameters,
-            measurements: brewData.measurements,
-            evaluation: brewData.evaluation,
-            turbulenceSteps: brewData.turbulenceSteps?.length || 0
-          };
+          // No validation errors but API failed - this indicates a backend connection issue
+          console.error('❌ Backend API connection failed:', error);
           
-          // Log complete valid data for user review
-          console.log('\n🎉 BREW DATA VALIDATION SUCCESS!');
-          console.log('===================================');
-          console.log('✅ All fields validated successfully:');
-          console.log('📊 Complete Brew Data:', JSON.stringify(brewSummary, null, 2));
-          console.log('===================================\n');
-          
-          // Show positive development message with navigation guidance
-          errorMessage = `🎉 Excellent! All brew data is valid and complete!\n\n` +
-            `✅ Coffee Beans: ${brewData.beans?.brand} from ${brewData.beans?.origin}\n` +
-            `✅ Brewing Method: ${brewData.parameters?.brewingMethod}\n` +
-            `✅ Coffee Weight: ${brewData.measurements?.coffeeBeansWeight}g\n` +
-            `✅ Water Weight: ${brewData.measurements?.waterWeight}g\n` +
-            `${brewData.evaluation ? '✅ Evaluation: ' + brewData.evaluation.type + ' assessment\n' : ''}` +
-            `\n📝 This is a frontend-only demo environment. In a full deployment, your brew would be saved to the database.\n\n` +
-            `🔍 Complete brew data logged to browser console for review.\n` +
-            `🎆 Ready to create another brew? Click 'Cancel' to return to the main page!`;
-          
-          // Set a flag to enable navigation actions
-          setIsSubmitting(false);
-          setIsValidationComplete(true);
-          
-          // Optional: Auto-redirect after delay (user can cancel)
-          // setTimeout(() => {
-          //   onComplete('demo-brew-validated-' + Date.now());
-          // }, 5000);
+          if (error instanceof Error) {
+            if (error.message.includes('fetch') || error.message.includes('Network')) {
+              errorMessage = `❌ Cannot connect to backend server.\n\n` +
+                `The frontend is deployed but cannot reach the backend API.\n\n` +
+                `🔧 Possible issues:\n` +
+                `• Backend server may be down or restarting\n` +
+                `• CORS configuration issue\n` +
+                `• Environment variable REACT_APP_API_URL not set correctly\n\n` +
+                `📊 Your brew data is valid but could not be saved.\n` +
+                `Please try again in a moment or contact support.`;
+            } else {
+              errorMessage = `❌ API Error: ${error.message}\n\n` +
+                `Backend connection issue - your data could not be saved.\n` +
+                `Please try again or contact support if the issue persists.`;
+            }
+          } else {
+            errorMessage = `❌ Unknown backend error occurred.\n\n` +
+              `Your brew data appears valid but could not be saved to the database.\n` +
+              `Please check your connection and try again.`;
+          }
         }
       }
       

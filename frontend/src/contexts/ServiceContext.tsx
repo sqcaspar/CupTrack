@@ -18,7 +18,7 @@ export const ServiceProvider: React.FC<ServiceProviderProps> = ({ children }) =>
   // Initialize services
   React.useEffect(() => {
     const apiConfig: ApiConfig = {
-      baseURL: process.env.REACT_APP_API_BASE_URL || 'http://localhost:3001',
+      baseURL: process.env.REACT_APP_API_URL || process.env.REACT_APP_API_BASE_URL || 'http://localhost:3001',
       timeout: 10000,
       retries: 3
     };
@@ -29,7 +29,15 @@ export const ServiceProvider: React.FC<ServiceProviderProps> = ({ children }) =>
     // Create brew service
     createBrewService(apiClient);
 
-    console.log('Services initialized successfully');
+    console.log('🚀 Services initialized successfully');
+    console.log('📡 API Base URL:', apiConfig.baseURL);
+    console.log('🌍 Environment:', process.env.NODE_ENV);
+    console.log('🔧 Environment Variables:', {
+      REACT_APP_API_URL: process.env.REACT_APP_API_URL ? '✅ Set' : '❌ Missing',
+      REACT_APP_API_BASE_URL: process.env.REACT_APP_API_BASE_URL ? '✅ Set' : '❌ Missing',
+      REACT_APP_SUPABASE_URL: process.env.REACT_APP_SUPABASE_URL ? '✅ Set' : '❌ Missing',
+      REACT_APP_SUPABASE_ANON_KEY: process.env.REACT_APP_SUPABASE_ANON_KEY ? '✅ Set' : '❌ Missing'
+    });
   }, []);
 
   return (
