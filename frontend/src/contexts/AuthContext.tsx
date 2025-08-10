@@ -31,16 +31,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     const initializeAuth = async () => {
       try {
-        // Check for authentication (demo and regular users use same flow)
-        // Demo users now have real Supabase accounts and use standard authentication
+        // Check for persisted authentication (tokens in localStorage)
+        // This enables authentication state to survive page refreshes and navigation
         if (authService.isAuthenticated()) {
           setIsAuthenticated(true);
-          // Note: In a real app, we might need to fetch user info from token
-          // For now, we'll just mark as authenticated
+          console.log('✅ Authentication restored from persisted tokens');
+          
+          // TODO: In future, we might decode token to get user info
+          // For now, we'll just mark as authenticated since token validation happens on API calls
+        } else {
+          // No persisted authentication found
+          console.log('ℹ️ No persisted authentication found');
+          setIsAuthenticated(false);
         }
       } catch (error) {
         console.error('Failed to initialize authentication:', error);
+        // Clear any invalid persisted tokens
         authService.clearAuth();
+        setIsAuthenticated(false);
       }
     };
 
@@ -87,6 +95,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setLoading(true);
     try {
       await authService.logout();
+      console.log('✅ Logout successful - tokens cleared');
     } catch (error) {
       console.error('Logout failed:', error);
       // Continue with local cleanup even if API call fails
@@ -94,6 +103,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       // Clear any legacy demo authentication data from localStorage  
       localStorage.removeItem('cuptrack_demo_auth');
       
+      // The authService.logout() already clears persisted tokens via clearAuth()
+      // but let's be explicit about the state cleanup
       setUser(null);
       setIsAuthenticated(false);
       setLoading(false);

@@ -17,6 +17,10 @@ export class ApiClient {
   constructor(config: ApiConfig) {
     this.config = config;
     
+    // Initialize tokens from localStorage if available
+    this.authToken = localStorage.getItem('cuptrack_auth_token');
+    this.refreshToken = localStorage.getItem('cuptrack_refresh_token');
+    
     this.axiosInstance = axios.create({
       baseURL: config.baseURL,
       timeout: config.timeout,
@@ -47,14 +51,14 @@ export class ApiClient {
         const originalRequest = error.config as any;
 
         // Handle 401 errors and try to refresh token
-        if (error.response?.status === 401 && !originalRequest._retry && this.refreshToken) {
+        if (error.response?.status === 401 && !originalRequest._retry && this.getRefreshToken()) {
           originalRequest._retry = true;
 
           try {
             const refreshResponse = await this.axiosInstance.request({
               method: 'POST',
               url: '/auth/refresh',
-              data: { refreshToken: this.refreshToken }
+              data: { refreshToken: this.getRefreshToken() }
             });
 
             const { tokens } = refreshResponse.data;
@@ -83,22 +87,42 @@ export class ApiClient {
 
   setAuthToken(token: string): void {
     this.authToken = token;
+    // Persist token to localStorage for authentication state persistence
+    localStorage.setItem('cuptrack_auth_token', token);
   }
 
   getAuthToken(): string | null {
+    // Check memory first, then localStorage if memory is empty
+    if (!this.authToken) {
+      this.authToken = localStorage.getItem('cuptrack_auth_token');
+    }
     return this.authToken;
   }
 
   clearAuthToken(): void {
     this.authToken = null;
+    // Clear persisted token
+    localStorage.removeItem('cuptrack_auth_token');
   }
 
   setRefreshToken(token: string): void {
     this.refreshToken = token;
+    // Persist refresh token to localStorage
+    localStorage.setItem('cuptrack_refresh_token', token);
+  }
+
+  getRefreshToken(): string | null {
+    // Check memory first, then localStorage if memory is empty
+    if (!this.refreshToken) {
+      this.refreshToken = localStorage.getItem('cuptrack_refresh_token');
+    }
+    return this.refreshToken;
   }
 
   clearRefreshToken(): void {
     this.refreshToken = null;
+    // Clear persisted refresh token
+    localStorage.removeItem('cuptrack_refresh_token');
   }
 
   async request(method: RequestConfig['method'], url: string, data?: any, headers: Record<string, string> = {}): Promise<any> {
