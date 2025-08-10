@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CreateBrewRequest } from '../../types/brew';
 import { BeansStep } from './wizard/BeansStep';
 import { ParametersStep } from './wizard/ParametersStep';
@@ -152,6 +153,7 @@ export const BrewWizard: React.FC<BrewWizardProps> = ({
   onCancel,
   initialData = {}
 }) => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [brewData, setBrewData] = useState<Partial<CreateBrewRequest>>(initialData);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -650,8 +652,8 @@ export const BrewWizard: React.FC<BrewWizardProps> = ({
               <button
                 type="button"
                 onClick={() => {
-                  // Navigate to analytics page
-                  window.location.href = '/analytics';
+                  // Navigate to analytics page using React Router
+                  navigate('/analytics');
                 }}
                 className="btn btn-outline"
               >
@@ -660,7 +662,10 @@ export const BrewWizard: React.FC<BrewWizardProps> = ({
               
               <button
                 type="button"
-                onClick={onCancel}
+                onClick={() => {
+                  // Navigate back to brews list directly
+                  navigate('/brews');
+                }}
                 className="btn btn-ghost"
               >
                 ← Back to Main
